@@ -1,0 +1,75 @@
+#include <iostream>
+#include <ctime>
+using namespace std;
+
+// Struct untuk menyimpan data parkir
+struct Parkir {
+    string nomor_plat;
+    time_t jam_masuk;
+};
+
+int main() {
+    Parkir data;
+    int jenis_kendaraan;
+    time_t jam_keluar;
+    double lama_parkir;
+    int tarif;
+    double biaya;
+
+    // INPUT DATA MASUK
+    cout << "Masukkan nomor plat: ";
+    cin >> data.nomor_plat;
+
+    cout << "Jenis kendaraan (1 = Motor, 2 = Mobil): ";
+    cin >> jenis_kendaraan;
+
+    // Ambil waktu sekarang sebagai jam masuk
+    data.jam_masuk = time(0);
+    cout << "Kendaraan masuk dicatat.\n";
+
+    // Simulasi proses keluar
+    cout << "\nTekan ENTER untuk simulasi kendaraan keluar...";
+    cin.ignore();
+    cin.get();
+
+    // INPUT KELUAR
+    cout << "\nMasukkan nomor plat keluar: ";
+    string plat_keluar;
+    cin >> plat_keluar;
+
+    if (plat_keluar != data.nomor_plat) {
+        cout << "Nomor plat tidak ditemukan!\n";
+        return 0;
+    }
+
+    // Ambil waktu keluar
+    jam_keluar = time(0);
+
+    // Hitung lama parkir (dalam jam)
+    lama_parkir = difftime(jam_keluar, data.jam_masuk) / 3600.0;
+
+    // Minimal 1 jam
+    if (lama_parkir < 1)
+        lama_parkir = 1;
+
+    // Tentukan tarif
+    if (jenis_kendaraan == 1) {
+        tarif = 2000;
+    } else {
+        tarif = 5000;
+    }
+
+    // Hitung biaya
+    biaya = tarif * lama_parkir;
+
+    // OUTPUT
+    cout << "\n===== STRUK PARKIR =====\n";
+    cout << "Nomor Plat : " << data.nomor_plat << endl;
+    cout << "Durasi     : " << lama_parkir << " jam\n";
+    cout << "Tarif/jam  : " << tarif << endl;
+    cout << "Total Bayar: " << biaya << endl;
+
+    cout << "\nData diperbarui. Program selesai.\n";
+
+    return 0;
+}
